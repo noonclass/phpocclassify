@@ -157,6 +157,30 @@
     }
 
     /**
+     * Gets link from current item, if $locale is unspecified $locale is current user locale
+     *
+     * @param string $locale
+     * @return string
+     */
+    function osc_item_link($locale = "") {
+        if ($locale == "") $locale = osc_current_user_locale();
+        $link = osc_item_field("s_link", $locale);
+        if($link=='') {
+            $link = osc_item_field("s_link", osc_language());
+            if($link=='') {
+                $aLocales = osc_get_locales();
+                foreach($aLocales as $locale) {
+                    $link = osc_item_field("s_link", @$locale['pk_c_code']);
+                    if($link!='') {
+                        break;
+                    }
+                }
+            }
+        }
+        return (string) $link;
+    }
+
+    /**
      * Gets title from current item, if $locale is unspecified $locale is current user locale
      *
      * @param string $locale
@@ -224,11 +248,11 @@
      * @return string
      */
     function osc_item_category_price_enabled($catId = null) {
-		if($catId == null) {
-			$category = Category::newInstance()->findByPrimaryKey( osc_item_category_id() ) ;
-		} else {
-			$category = Category::newInstance()->findByPrimaryKey($catId) ;
-		}
+        if($catId == null) {
+            $category = Category::newInstance()->findByPrimaryKey( osc_item_category_id() ) ;
+        } else {
+            $category = Category::newInstance()->findByPrimaryKey($catId) ;
+        }
         return $category['b_price_enabled']==1?true:false;
     }
 

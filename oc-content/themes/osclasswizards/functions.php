@@ -349,6 +349,20 @@ DEFINES
             );
         }
     }
+    if( !function_exists('osclasswizards_item_link') ) {
+        function osclasswizards_item_link() {
+            $link = osc_item_link();
+            foreach( osc_get_locales() as $locale ) {
+                if( Session::newInstance()->_getForm('link') != "" ) {
+                    $link_ = Session::newInstance()->_getForm('link');
+                    if( @$link_[$locale['pk_c_code']] != "" ){
+                        $link = $link_[$locale['pk_c_code']];
+                    }
+                }
+            }
+            return $link;
+        }
+    }
     if( !function_exists('osclasswizards_item_title') ) {
         function osclasswizards_item_title() {
             $title = osc_item_title();
@@ -860,6 +874,10 @@ function osclasswizards_item_post_form_validate(){
 				required: true,
 				digits: true
 			},
+			'link[<?php echo osc_current_user_locale();?>]': {
+				required:true,
+				minlength:12 //http://x.com
+			},
 			'title[<?php echo osc_current_user_locale();?>]': {
 				required:true,
 				minlength:<?php echo osclasswizards_title_minimum_length();?>
@@ -909,7 +927,11 @@ function osclasswizards_item_post_form_validate(){
 		},
 		messages: {
 			catId: {
-			required: "<?php echo osc_esc_js(__("Choose one category", OSCLASSWIZARDS_THEME_FOLDER)); ?>."
+			required: "<?php echo osc_esc_js(__("Category: Choose one category", OSCLASSWIZARDS_THEME_FOLDER)); ?>."
+			},
+			'link[<?php echo osc_current_user_locale();?>]': {
+				required: "<?php echo osc_esc_js(__("URL: this field is required", OSCLASSWIZARDS_THEME_FOLDER)); ?>.",
+				minlength: "<?php echo osc_esc_js(__("URL too short", OSCLASSWIZARDS_THEME_FOLDER)); ?>."
 			},
 			'title[<?php echo osc_current_user_locale();?>]': {
 				required: "<?php echo osc_esc_js(__("Title: this field is required", OSCLASSWIZARDS_THEME_FOLDER)); ?>.",

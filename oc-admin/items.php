@@ -643,8 +643,9 @@
                                         $contactItemAttachment      = (($contactItemAttachment != '') ? true : false);
                                         $warnExpiration             = Params::getParam('warn_expiration');
                                         $warnExpiration             = (int) $warnExpiration;
-                                        $titleLength				= Params::getParam('max_chars_per_title');
-                                        $descriptionLength			= Params::getParam('max_chars_per_description');
+                                        $linkLength                 = Params::getParam('max_chars_per_link');
+                                        $titleLength                = Params::getParam('max_chars_per_title');
+                                        $descriptionLength          = Params::getParam('max_chars_per_description');
 
 
 
@@ -660,6 +661,9 @@
                                         }
                                         if(!osc_validate_int($warnExpiration)) {
                                             $msg .= _m("Number of expiration days has to be a numeric value")."<br/>";
+                                        }
+                                        if(!osc_validate_int($linkLength)) {
+                                            $msg .= _m("Link Length has to be a numeric value")."<br/>";
                                         }
                                         if(!osc_validate_int($titleLength)) {
                                             $msg .= _m("Title Length has to be a numeric value")."<br/>";
@@ -692,6 +696,7 @@
                                         $iUpdated += osc_set_preference('reg_user_can_contact', $regUserCanContact);
                                         $iUpdated += osc_set_preference('item_attachment', $contactItemAttachment);
                                         $iUpdated += osc_set_preference('warn_expiration', $warnExpiration);
+                                        $iUpdated += osc_set_preference('link_character_length', $linkLength);
                                         $iUpdated += osc_set_preference('title_character_length', $titleLength);
                                         $iUpdated += osc_set_preference('description_character_length', $descriptionLength);
 

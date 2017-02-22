@@ -29,8 +29,8 @@ if(View::newInstance()->_exists('listType')){
 
 <ul class="listing-card-list" id="listing-card-list">
   <?php
-	//latest items
-	if($type == 'latestItems'){
+    //latest items
+    if($type == 'latestItems'){
 
     while ( osc_has_latest_items() ) {
 ?>
@@ -52,18 +52,28 @@ if(View::newInstance()->_exists('listType')){
         <div class="col-sm-8 col-md-9">
           <div class="info">
             <div class="detail_info">
-              <h4><a href="<?php echo osc_item_url() ; ?>" title="<?php echo osc_esc_html(osc_item_title()) ; ?>"><?php echo osc_item_title() ; ?></a></h4>
-             
-              <div class="attribute_list"> <span class="category"><i class="fa fa-<?php echo osclasswizards_category_icon( osc_item_category_id() ); ?>"></i> <?php echo osc_item_category() ; ?></span> <span class="location"><i class="fa fa-map-marker"></i> <?php echo osc_item_city(); ?>
-                <?php if( osc_item_region()!='' ) { ?>
-                (<?php echo osc_item_region(); ?>)
-                <?php } ?>
+              <h4><a href="<?php echo osc_item_link(); ?>" title="<?php echo osc_esc_html(osc_item_title()); ?>"><?php echo osc_item_title(); ?></a><span class="link"><?php echo ' - '.osc_item_link(); ?></span></h4>
+              <div class="attribute_list"> <span class="category"><i class="fa fa-<?php echo osclasswizards_category_icon( osc_item_category_id() ); ?>"></i> <?php echo osc_item_category() ; ?></span> <span class="location"><i class="fa fa-map-marker"></i> <?php $city=osc_item_city(); $region=osc_item_region(); $country=osc_item_country(); if( $city !='' ){ 
+                  echo $city;
+                  if( $region!='' ) { ?>
+                    (<?php echo $region; ?>)
+                <?php }else{ ?>
+                    (<?php echo $country; ?>)
+                <?php }} else{
+                  if( $region!='' ) {
+                    echo $region;
+                    if( $country!='' ) { ?>
+                        (<?php echo $country; ?>)
+                  <?php }} else{
+                    echo $country;
+                }} ?>
                 </span> <span class="date"> <i class="fa fa-clock-o"></i> <?php echo osc_format_date(osc_item_pub_date()); ?> </span>
                 <?php if( osc_price_enabled_at_items() ) { ?>
                 <span class="currency-value"> <?php echo osc_format_price(osc_item_price()); ?></span>
                 <?php } ?>
               </div>
               <p><?php echo osc_highlight( osc_item_description() ,250) ; ?></p>
+              <p><a class="read_more" href="<?php echo osc_item_url() ; ?>" title="<?php echo osc_esc_html(osc_item_title()) ; ?>">Read More<span class="arrow">»</span></a></p>
             </div>
             <?php $admin = false; ?>
             <?php if($admin){ ?>
@@ -84,7 +94,7 @@ if(View::newInstance()->_exists('listType')){
       </div>
     </div>
   </li>
-  <?php	
+  <?php 
         }
     } 
 ?>

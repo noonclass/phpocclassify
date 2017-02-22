@@ -244,10 +244,11 @@ CREATE TABLE /*TABLE_PREFIX*/t_item (
 CREATE TABLE /*TABLE_PREFIX*/t_item_description (
     fk_i_item_id INT(10) UNSIGNED NOT NULL,
     fk_c_locale_code CHAR(5) NOT NULL,
+    s_link VARCHAR(255) NOT NULL,
     s_title VARCHAR(100) NOT NULL,
     s_description MEDIUMTEXT NOT NULL,
         PRIMARY KEY (fk_i_item_id, fk_c_locale_code),
-        FULLTEXT s_description (s_description, s_title)
+        FULLTEXT s_description (s_description, s_title, s_link)
 ) ENGINE=MyISAM DEFAULT CHARACTER SET 'UTF8' COLLATE 'UTF8_GENERAL_CI';
 
 

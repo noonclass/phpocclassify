@@ -27,13 +27,14 @@
             $this->manager = Item::newInstance();
         }
 
-        private function _akismet_text( $title, $description, $author, $email )
+        private function _akismet_text( $link, $title, $description, $author, $email )
         {
             $spam = false;
             foreach($title as $k => $_data){
+                $_link          = $link[$k];
                 $_title         = $title[$k];
                 $_description   = $description[$k];
-                $content        = $_title. ' ' .$_description;
+                $content        = $_link. ' ' .$_title. ' ' .$_description;
                 if (osc_akismet_key()) {
                     require_once LIB_PATH . 'Akismet.class.php';
                     $akismet = new Akismet(osc_base_url(), osc_akismet_key());
@@ -73,6 +74,9 @@
             $active = $aItem['active'];
 
             // Sanitize
+            foreach(@$aItem['link'] as $key=>$value) {
+                $aItem['link'][$key] = strip_tags( trim ( $value ) );
+            }
             foreach(@$aItem['title'] as $key=>$value) {
                 $aItem['title'][$key] = strip_tags( trim ( $value ) );
             }
@@ -94,6 +98,20 @@
                 $flash_error .= _m("Image is too big. Max. size") . osc_max_size_kb() ." Kb" . PHP_EOL;
             }
 
+            $link_message = '';
+            foreach(@$aItem['link'] as $key => $value) {
+
+                if( osc_validate_text($value, 1) && osc_validate_max($value, osc_max_characters_per_link()) ) {
+                    $link_message = '';
+                    break;
+                }
+
+                $link_message .=
+                    (!osc_validate_text($value, 1) ? sprintf(_m("Link too short (%s)."), $key) . PHP_EOL : '' ) .
+                    (!osc_validate_max($value, osc_max_characters_per_link()) ? sprintf(_m("Link too long (%s)."), $key) . PHP_EOL : '' );
+            }
+            $flash_error .= $link_message;
+            
             $title_message = '';
             foreach(@$aItem['title'] as $key => $value) {
 
@@ -122,7 +140,7 @@
             $flash_error .= $desc_message;
 
             // akismet check spam ...
-            if( $this->_akismet_text( $aItem['title'], $aItem['description'] , $contactName, $contactEmail) ) {
+            if( $this->_akismet_text( $aItem['link'], $aItem['title'], $aItem['description'] , $contactName, $contactEmail) ) {
                 $is_spam     = 1;
             }
 
@@ -206,12 +224,12 @@
                 }
 
                 $itemId = $this->manager->dao->insertedId();
-                Log::newInstance()->insertLog('item', 'add', $itemId, current(array_values($aItem['title'])), $this->is_admin?'admin':'user', $this->is_admin?osc_logged_admin_id():osc_logged_user_id());
+                Log::newInstance()->insertLog('item', 'add', $itemId, current(array_values($aItem['link'])), $this->is_admin?'admin':'user', $this->is_admin?osc_logged_admin_id():osc_logged_user_id());
 
                 Params::setParam('itemId', $itemId);
 
                 // INSERT title and description locales
-                $this->insertItemLocales('ADD', $aItem['title'], $aItem['description'], $itemId );
+                $this->insertItemLocales('ADD', $aItem['link'], $aItem['title'], $aItem['description'], $itemId );
 
                 $location = array(
                     'fk_i_item_id'      => $itemId,
@@ -436,7 +454,7 @@
                 $result = $this->manager->update( $aUpdate, array('pk_i_id'  => $aItem['idItem'],
                                                                   's_secret' => $aItem['secret'] ) );
                 // UPDATE title and description locales
-                $this->insertItemLocales( 'EDIT', $aItem['title'], $aItem['description'], $aItem['idItem'] );
+                $this->insertItemLocales( 'EDIT', $aItem['link'], $aItem['title'], $aItem['description'], $aItem['idItem'] );
                 // UPLOAD item resources
                 $this->uploadItemResources( $aItem['photos'], $aItem['idItem'] );
 
@@ -1158,6 +1176,7 @@
             $aItem['address']       = Params::getParam('address');
             $aItem['currency']      = Params::getParam('currency');
             $aItem['showEmail']     = (Params::getParam('showEmail') != '') ? 1 : 0;
+            $aItem['link']          = Params::getParam('link');
             $aItem['title']         = Params::getParam('title');
             $aItem['description']   = Params::getParam('description');
             $aItem['photos']        = Params::getFiles('photos');
@@ -1298,15 +1317,16 @@
             $this->data = $aItem;
         }
 
-        function insertItemLocales($type, $title, $description, $itemId )
+        function insertItemLocales($type, $link, $title, $description, $itemId )
         {
             foreach($title as $k => $_data){
+                $_link          = $link[$k];
                 $_title         = $title[$k];
                 $_description   = $description[$k];
                 if($type == 'ADD'){
-                    $this->manager->insertLocale($itemId, $k, $_title, $_description);
+                    $this->manager->insertLocale($itemId, $k, $_link, $_title, $_description);
                 }else if($type == 'EDIT'){
-                    $this->manager->updateLocaleForce($itemId, $k, $_title, $_description);
+                    $this->manager->updateLocaleForce($itemId, $k, $_link, $_title, $_description);
                 }
             }
         }

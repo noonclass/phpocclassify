@@ -375,11 +375,12 @@
          * @param string $description
          * @return boolean
          */
-        public function insertLocale($id, $locale, $title, $description)
+        public function insertLocale($id, $locale, $link, $title, $description)
         {
             $array_set   = array(
                 'fk_i_item_id'      => $id,
                 'fk_c_locale_code'  => $locale,
+                's_link'            => $link,
                 's_title'           => $title,
                 's_description'     => $description
             );
@@ -757,9 +758,10 @@
          * @param string $text
          * @return bool
          */
-        public function updateLocaleForce($id, $locale, $title, $text)
+        public function updateLocaleForce($id, $locale, $link, $title, $text)
         {
             $array_replace = array(
+                's_link'            => $link,
                 's_title'           => $title,
                 's_description'     => $text,
                 'fk_c_locale_code'  => $locale,

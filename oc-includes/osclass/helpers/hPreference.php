@@ -294,6 +294,16 @@
     }
 
     /**
+     * Gets how many characters are allowed for the listings link
+     *
+     * @return int
+     */
+    function osc_max_characters_per_link() {
+        $value = getPreference('link_character_length');
+        return ( !empty($value) ? $value : 255);
+    }
+
+    /**
      * Gets how many characters are allowed for the listings title
      *
      * @return int

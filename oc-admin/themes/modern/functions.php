@@ -113,6 +113,27 @@ function printLocaleTabs($locales = null) {
     };
 }
 
+function printLocaleLink($locales = null, $item = null) {
+    if($locales==null) { $locales = osc_get_locales(); }
+    if($item==null) { $item = osc_item(); }
+    $num_locales = count($locales);
+    foreach($locales as $locale) {
+        echo '<div class="input-has-placeholder input-link-wide"><label for="link">' . __('Enter link here') . ' *</label>';
+        $link = (isset($item) && isset($item['locale'][$locale['pk_c_code']]) && isset($item['locale'][$locale['pk_c_code']]['s_link'])) ? $item['locale'][$locale['pk_c_code']]['s_link'] : '';
+        if( Session::newInstance()->_getForm('link') != "" ) {
+            $link_ = Session::newInstance()->_getForm('link');
+            if( $link_[$locale['pk_c_code']] != "" ){
+                $link = $link_[$locale['pk_c_code']];
+            }
+        }
+        $link = osc_apply_filter('admin_item_link', $link, $item, $locale);
+
+        $name = 'link'. '[' . $locale['pk_c_code'] . ']';
+        echo '<input id="' . $name . '" type="text" name="' . $name . '" value="' . osc_esc_html(htmlentities($link, ENT_COMPAT, "UTF-8")) . '"  />';
+        echo '</div>';
+    }
+}
+
 function printLocaleTitle($locales = null, $item = null) {
     if($locales==null) { $locales = osc_get_locales(); }
     if($item==null) { $item = osc_item(); }

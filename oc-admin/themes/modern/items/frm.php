@@ -163,6 +163,8 @@ function customPageHeader() { ?>
                         <input type="hidden" name="secret" value="<?php echo osc_item_secret(); ?>" />
                     <?php } ?>
                     <div id="left-side">
+                        <?php printLocaleLink(osc_get_locales()); ?>
+                        <br/>
                         <?php printLocaleTitle(osc_get_locales()); ?>
                         <div class="category">
                             <label><?php _e('Category'); ?></label>

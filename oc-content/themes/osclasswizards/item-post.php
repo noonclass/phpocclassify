@@ -66,155 +66,179 @@
           <input type="hidden" name="id" value="<?php echo osc_item_id();?>" />
           <input type="hidden" name="secret" value="<?php echo osc_item_secret();?>" />
           <?php } ?>
-          <h2>
-            <?php _e('General Information', OSCLASSWIZARDS_THEME_FOLDER); ?>
-          </h2>
-          <div class="form-group">
-            <label class="control-label" for="select_1">
-              <?php _e('Category', OSCLASSWIZARDS_THEME_FOLDER); ?>
-            </label>
-            <div class="controls">
-              <?php  if ( osc_count_categories() ) { ?>
-			<?php if(osc_get_preference('category_multiple_selects', 'osclasswizards_theme') == '1'){ ?>
-			  <div class="cat_multiselect"><?php ItemForm::category_multiple_selects(null, null, null, osc_esc_html(__('Select a category', OSCLASSWIZARDS_THEME_FOLDER))); ?></div>
-			<?php }else{ ?>
-              <?php ItemForm::category_select(null, null, osc_esc_html(__('Select a category', OSCLASSWIZARDS_THEME_FOLDER))); ?>
-			<?php } ?>
-              <?php  } ?>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label" for="title[<?php echo osc_current_user_locale(); ?>]">
-              <?php _e('Title', OSCLASSWIZARDS_THEME_FOLDER); ?>
-            </label>
-            <div class="controls">
-              <?php ItemForm::title_input('title',osc_current_user_locale(), osc_esc_html( osclasswizards_item_title() )); ?>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label" for="description[<?php echo osc_current_user_locale(); ?>]">
-              <?php _e('Description', OSCLASSWIZARDS_THEME_FOLDER); ?>
-            </label>
-            <div class="controls">
-              <?php ItemForm::description_textarea('description',osc_current_user_locale(), osc_esc_html( osclasswizards_item_description() )); ?>
-            </div>
-          </div>
-          <?php if( osc_price_enabled_at_items() ) { ?>
-          <div class="form-group form-group-price">
-            <label class="control-label" for="price">
-              <?php _e('Price', OSCLASSWIZARDS_THEME_FOLDER); ?>
-            </label>
-            <div class="controls">
-              <ul class="row">
-                <li class="col-sm-5 col-md-5">
-                  <?php ItemForm::price_input_text(); ?>
-                </li>
-                <li class="col-sm-7 col-md-7">
-                  <?php ItemForm::currency_select(); ?>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <?php } ?>
-          <?php 
-			if( osc_images_enabled_at_items() ) {
-                ItemForm::ajax_photos();
-            } ?>
-          <div class="box location">
+          <div class="box general" id="general">
             <h2>
-              <?php _e('Listing Location', OSCLASSWIZARDS_THEME_FOLDER); ?>
+              <?php _e('General Information', OSCLASSWIZARDS_THEME_FOLDER); ?>
+              <span class="arrow" data-toggle="collapse" data-parent="#general" data-target="#g_container" ><i class="fa fa-caret-down"></i></span>
             </h2>
-            <div class="form-group">
-              <label class="control-label" for="country">
-                <?php _e('Country', OSCLASSWIZARDS_THEME_FOLDER); ?>
-              </label>
-              <div class="controls">
-                <?php ItemForm::country_select(osc_get_countries(), osc_user()); ?>
+            <div id="g_container">
+              <div class="form-group">
+                <label class="control-label" for="select_1">
+                  <?php _e('Category', OSCLASSWIZARDS_THEME_FOLDER); ?>
+                  <span class="req">*</span>
+                </label>
+                <div class="controls">
+                  <?php  if ( osc_count_categories() ) { ?>
+                <?php if(osc_get_preference('category_multiple_selects', 'osclasswizards_theme') == '1'){ ?>
+                  <div class="cat_multiselect"><?php ItemForm::category_multiple_selects(null, null, null, osc_esc_html(__('Select a category', OSCLASSWIZARDS_THEME_FOLDER))); ?></div>
+                <?php }else{ ?>
+                  <?php ItemForm::category_select(null, null, osc_esc_html(__('Select a category', OSCLASSWIZARDS_THEME_FOLDER))); ?>
+                <?php } ?>
+                  <?php  } ?>
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <label class="control-label" for="region">
-                <?php _e('Region', OSCLASSWIZARDS_THEME_FOLDER); ?>
-              </label>
-              <div class="controls">
-                <?php 
-				if(osclasswizards_locations_input_as() =='select'){ 
-                    if(count(osc_get_countries()) > 1){
-                        ItemForm::region_select(osc_get_regions(osc_user_field('fk_c_country_code')),osc_user());
-                    }else{
-                        $aCountries = osc_get_countries();
-                        $aRegions = osc_get_regions($aCountries[0]['pk_c_code']);
-                        ItemForm::region_select($aRegions,osc_user());
-                    }
-				}else{
-					ItemForm::region_text(osc_user());
-				}
-			?>
+              <div class="form-group">
+                <label class="control-label" for="link[<?php echo osc_current_user_locale(); ?>]">
+                  <?php _e('Link', OSCLASSWIZARDS_THEME_FOLDER); ?>
+                  <span class="req">*</span>
+                </label>
+                <div class="controls">
+                  <?php ItemForm::title_input('link',osc_current_user_locale(), osc_esc_html( osclasswizards_item_link() )); ?>
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <label class="control-label" for="city">
-                <?php _e('City', OSCLASSWIZARDS_THEME_FOLDER); ?>
-              </label>
-              <div class="controls">
-                <?php 
-				if(osclasswizards_locations_input_as() =='select'){ 
-                    if(Params::getParam('action') != 'item_edit') {
-                        ItemForm::city_select(null, osc_item());
-                    } else {
-                        ItemForm::city_select(osc_get_cities(osc_user_region_id()), osc_user());
-                    }
-                }else{
-					ItemForm::city_text(osc_user());
-				}
-			?>
+              <div class="form-group">
+                <label class="control-label" for="title[<?php echo osc_current_user_locale(); ?>]">
+                  <?php _e('Title', OSCLASSWIZARDS_THEME_FOLDER); ?>
+                  <span class="req">*</span>
+                </label>
+                <div class="controls">
+                  <?php ItemForm::title_input('title',osc_current_user_locale(), osc_esc_html( osclasswizards_item_title() )); ?>
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <label class="control-label" for="cityArea">
-                <?php _e('City Area', OSCLASSWIZARDS_THEME_FOLDER); ?>
-              </label>
-              <div class="controls">
-                <?php ItemForm::city_area_text(osc_user()); ?>
+              <div class="form-group">
+                <label class="control-label" for="description[<?php echo osc_current_user_locale(); ?>]">
+                  <?php _e('Description', OSCLASSWIZARDS_THEME_FOLDER); ?>
+                </label>
+                <div class="controls">
+                  <?php ItemForm::description_textarea('description',osc_current_user_locale(), osc_esc_html( osclasswizards_item_description() )); ?>
+                </div>
               </div>
+              <?php if( osc_price_enabled_at_items() ) { ?>
+              <div class="form-group form-group-price">
+                <label class="control-label" for="price">
+                  <?php _e('Price', OSCLASSWIZARDS_THEME_FOLDER); ?>
+                </label>
+                <div class="controls">
+                  <ul class="row">
+                    <li class="col-sm-5 col-md-5">
+                      <?php ItemForm::price_input_text(); ?>
+                    </li>
+                    <li class="col-sm-7 col-md-7">
+                      <?php ItemForm::currency_select(); ?>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <?php } ?>
+              <?php 
+                if( osc_images_enabled_at_items() ) {
+                    ItemForm::ajax_photos();
+                } ?>
             </div>
-            <div class="form-group">
-              <label class="control-label" for="address">
-                <?php _e('Address', OSCLASSWIZARDS_THEME_FOLDER); ?>
-              </label>
-              <div class="controls">
-                <?php ItemForm::address_text(osc_user()); ?>
+          </div>
+          <div class="box location" id="location">
+            <h2 >
+              <?php _e('Listing Location', OSCLASSWIZARDS_THEME_FOLDER); ?>
+              <span class="arrow" data-toggle="collapse" data-parent="#location" data-target="#l_container" ><i class="fa fa-caret-up"></i></span>
+            </h2>
+            <div id="l_container" class="collapse">
+              <div class="form-group">
+                <label class="control-label" for="country">
+                  <?php _e('Country', OSCLASSWIZARDS_THEME_FOLDER); ?>
+                </label>
+                <div class="controls">
+                  <?php ItemForm::country_select(osc_get_countries(), osc_user()); ?>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="region">
+                  <?php _e('Region', OSCLASSWIZARDS_THEME_FOLDER); ?>
+                </label>
+                <div class="controls">
+                  <?php 
+		  		if(osclasswizards_locations_input_as() =='select'){ 
+                      if(count(osc_get_countries()) > 1){
+                          ItemForm::region_select(osc_get_regions(osc_user_field('fk_c_country_code')),osc_user());
+                      }else{
+                          $aCountries = osc_get_countries();
+                          $aRegions = osc_get_regions($aCountries[0]['pk_c_code']);
+                          ItemForm::region_select($aRegions,osc_user());
+                      }
+		  		}else{
+		  			ItemForm::region_text(osc_user());
+		  		}
+		  	?>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="city">
+                  <?php _e('City', OSCLASSWIZARDS_THEME_FOLDER); ?>
+                </label>
+                <div class="controls">
+                  <?php 
+		  		if(osclasswizards_locations_input_as() =='select'){ 
+                      if(Params::getParam('action') != 'item_edit') {
+                          ItemForm::city_select(null, osc_item());
+                      } else {
+                          ItemForm::city_select(osc_get_cities(osc_user_region_id()), osc_user());
+                      }
+                  }else{
+		  			ItemForm::city_text(osc_user());
+		  		}
+		  	?>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="cityArea">
+                  <?php _e('City Area', OSCLASSWIZARDS_THEME_FOLDER); ?>
+                </label>
+                <div class="controls">
+                  <?php ItemForm::city_area_text(osc_user()); ?>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="address">
+                  <?php _e('Address', OSCLASSWIZARDS_THEME_FOLDER); ?>
+                </label>
+                <div class="controls">
+                  <?php ItemForm::address_text(osc_user()); ?>
+                </div>
               </div>
             </div>
           </div>
           <!-- seller info -->
           <?php if(!osc_is_web_user_logged_in() ) { ?>
-          <div class="box seller_info">
+          <div class="box seller_info" id="user">
             <h2>
               <?php _e("Seller's information", OSCLASSWIZARDS_THEME_FOLDER); ?>
+              <span class="arrow" data-toggle="collapse" data-parent="#user" data-target="#u_container" ><i class="fa fa-caret-up"></i></span>
             </h2>
-            <div class="form-group">
-              <label class="control-label" for="contactName">
-                <?php _e('Name', OSCLASSWIZARDS_THEME_FOLDER); ?>
-              </label>
-              <div class="controls">
-                <?php ItemForm::contact_name_text(); ?>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="control-label" for="contactEmail">
-                <?php _e('E-mail', OSCLASSWIZARDS_THEME_FOLDER); ?>
-              </label>
-              <div class="controls">
-                <?php ItemForm::contact_email_text(); ?>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="controls checkbox">
-                <?php ItemForm::show_email_checkbox(); ?>
-                <label for="showEmail">
-                  <?php _e('Show e-mail on the listing page', OSCLASSWIZARDS_THEME_FOLDER); ?>
+            <div id="u_container">
+              <div class="form-group">
+                <label class="control-label" for="contactName">
+                  <?php _e('Name', OSCLASSWIZARDS_THEME_FOLDER); ?>
+                  <span class="req">*</span>
                 </label>
+                <div class="controls">
+                  <?php ItemForm::contact_name_text(); ?>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="contactEmail">
+                  <?php _e('E-mail', OSCLASSWIZARDS_THEME_FOLDER); ?>
+                  <span class="req">*</span>
+                </label>
+                <div class="controls">
+                  <?php ItemForm::contact_email_text(); ?>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="controls checkbox">
+                  <?php ItemForm::show_email_checkbox(); ?>
+                  <label for="showEmail">
+                    <?php _e('Show e-mail on the listing page', OSCLASSWIZARDS_THEME_FOLDER); ?>
+                  </label>
+                </div>
               </div>
             </div>
           </div>
