@@ -1389,6 +1389,7 @@
             return $success;
         }
 
+        // <yagangw>2017.02.16_0 save original, normal[640x480]->[1280x720] and thumbnail[240x200]->[640x360] image, no longer save preview[480x340] size
         public function uploadItemResources($aResources,$itemId)
         {
             if($aResources != '') {
@@ -1417,12 +1418,12 @@
                                 $img->doWatermarkImage();
                             }
                             $img->saveToFile($path, $extension);
-
+/*
                             // Create preview
                             $path = $tmpName."_preview";
                             $size = explode('x', osc_preview_dimensions());
                             ImageResizer::fromFile($normal_path)->resizeTo($size[0], $size[1])->saveToFile($path, $extension);
-
+*/
                             // Create thumbnail
                             $path = $tmpName."_thumbnail";
                             $size = explode('x', osc_thumbnail_dimensions());
@@ -1441,22 +1442,23 @@
                                 }
                             }
                             osc_copy($tmpName.'_normal', $folder.$resourceId.'.'.$extension);
-                            osc_copy($tmpName.'_preview', $folder.$resourceId.'_preview.'.$extension);
+                            //osc_copy($tmpName.'_preview', $folder.$resourceId.'_preview.'.$extension);
                             osc_copy($tmpName.'_thumbnail', $folder.$resourceId.'_thumbnail.'.$extension);
                             if( osc_keep_original_image() ) {
                                 $path = $folder.$resourceId.'_original.'.$extension;
                                 osc_copy($tmpName, $path);
                             }
                             @unlink($tmpName."_normal");
-                            @unlink($tmpName."_preview");
+                            //@unlink($tmpName."_preview");
                             @unlink($tmpName."_thumbnail");
                             @unlink($tmpName);
 
                             $s_path = str_replace(osc_base_path(), '', $folder);
+                            $s_name = basename($aResources['name'][$key], '.'.$extension);
                             $itemResourceManager->update(
                                 array(
                                     's_path'          => $s_path
-                                    ,'s_name'         => osc_genRandomPassword()
+                                    ,'s_name'         => $s_name //osc_genRandomPassword()
                                     ,'s_extension'    => $extension
                                     ,'s_content_type' => $mime
                                 )

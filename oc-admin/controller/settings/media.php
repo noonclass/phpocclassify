@@ -202,12 +202,13 @@
                                 }
                             }
                             $img->saveToFile($path);
-
+                            // <yagangw>2017.02.16_0 no longer save preview[480x340] size when 'Regenerate images' at 'Media Settings' from admin panel
+/*
                             // Create preview
                             $path = osc_base_path().$resource['s_path'].$resource['pk_i_id'].'_preview.'.$resource['s_extension'];
                             $size = explode('x', osc_preview_dimensions());
                             ImageResizer::fromFile($path_normal)->resizeTo($size[0], $size[1])->saveToFile($path);
-
+*/
                             // Create thumbnail
                             $path = osc_base_path().$resource['s_path'].$resource['pk_i_id'].'_thumbnail.'.$resource['s_extension'];
                             $size = explode('x', osc_thumbnail_dimensions());
