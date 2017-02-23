@@ -59,7 +59,19 @@
 <meta name="viewport" content="initial-scale = 1.0,maximum-scale = 1.0" />
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
-<link rel="shortcut icon" href="<?php echo osclasswizards_favicon_url(); ?>" type="image/x-icon" />
+
+<!-- favicon -->
+<link rel="shortcut icon" href="<?php echo osc_current_web_theme_url('images/favicon/favicon.png'); ?>">
+<!-- Standard iPhone -->
+<link rel="apple-touch-icon-precomposed" sizes="57x57"  href="<?php echo osc_current_web_theme_url('images/favicon/favicon-57.png'); ?>">
+<!-- Retina iPhone -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo osc_current_web_theme_url('images/favicon/favicon-114.png'); ?>">
+<!-- Standard iPad --> 
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo osc_current_web_theme_url('images/favicon/favicon-72.png'); ?>">
+<!-- Retina iPad -->  
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo osc_current_web_theme_url('images/favicon/favicon-144.png'); ?>">
+<!-- /favicon -->
+
 <link href="<?php echo osc_current_web_theme_url('js/jquery-ui/jquery-ui-1.10.2.custom.min.css') ; ?>" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     var osclasswizards = window.osclasswizards || {};

@@ -79,20 +79,10 @@
         <?php } ?>
       </ul>
       <?php
-            echo '<div class="copyright">' . sprintf(__('Free responsive Osclass theme Sponsored by <a target="_blank" title="osclassthemes.org" href="%s">Osclass Themes</a>',OSCLASSWIZARDS_THEME_FOLDER), 'http://www.osclassthemes.org/') . '</div>';
+            echo '<div class="copyright"><a herf="/help/show_article?conditions">Copyright ©</a> 1999-2017 <a href=#>HOTLINKS.ORG</a><br/> ' . sprintf(__('Powered by <a target="_blank" title="osclass.org" href="%s">Osclass</a> - Theme by <a target="_blank" title="osclassthemes.org" href="%s">Osclass Themes</a>',OSCLASSWIZARDS_THEME_FOLDER), 'http://www.osclass.org/','http://www.osclassthemes.org/') . '</div>';
         ?>
     </div>
   </div>
 </footer>
 <?php osc_run_hook('footer'); ?>
-<?php if(osc_is_ad_page() || osc_is_search_page()){ ?>
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&appId=498033263566934&version=v2.3";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-<?php } ?>
 </body></html>
