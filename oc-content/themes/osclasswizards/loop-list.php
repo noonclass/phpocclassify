@@ -68,6 +68,7 @@ if(View::newInstance()->_exists('listType')){
                     echo $country;
                 }} ?>
                 </span> <span class="date"> <i class="fa fa-clock-o"></i> <?php echo osc_format_date(osc_item_pub_date()); ?> </span>
+                <span class="stat"> <i class="fa fa-smile-o"></i> <?php echo osc_item_views(); ?>  <?php _e('Times', OSCLASSWIZARDS_THEME_FOLDER) ; ?></span>
                 <?php if( osc_price_enabled_at_items() ) { ?>
                 <span class="currency-value"> <?php echo osc_format_price(osc_item_price()); ?></span>
                 <?php } ?>
