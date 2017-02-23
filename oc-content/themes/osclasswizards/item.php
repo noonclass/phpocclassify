@@ -68,11 +68,11 @@
       <?php } ?>
       <h1 class="title title_code"> <strong><?php echo osc_item_title(); ?></strong> </h1>
       <ul class="item-header">
+        <?php if( osc_price_enabled_at_items() ) { ?>
         <li>
-          <?php if( osc_price_enabled_at_items() ) { ?>
           <i class="fa fa-money"></i><?php echo osc_item_formated_price(); ?>
-          <?php } ?>
         </li>
+        <?php } ?>
         <li>
           <?php if ( osc_item_pub_date() !== '' ) { printf( __('<i class="fa fa-calendar-o"></i> Published date: %1$s', OSCLASSWIZARDS_THEME_FOLDER), osc_format_date( osc_item_pub_date() ) ); } ?>
         </li>
