@@ -113,7 +113,7 @@
       <?php } ?>
       <div id="description">
         <p><?php echo osc_item_description(); ?></p>
-        <p class="link"><span class="fa fa-link"></span><a href="><?php echo osc_item_link() ;?>" title="<?php echo osc_item_title(); ?>"><?php echo osc_item_link() ;?></a></p>
+        <p class="link"><span class="fa fa-link"></span><a href="<?php echo osc_item_link() ;?>" title="<?php echo osc_item_title(); ?>"><?php echo osc_item_link() ;?></a></p>
         <div id="custom_fields">
           <?php if( osc_count_item_meta() >= 1 ) { ?>
           <br />
