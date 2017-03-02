@@ -571,6 +571,7 @@ DEFINES
         switch( Params::getParam('action_specific') ) {
             case('settings'):
                 osc_set_preference('welcome_message', Params::getParam('welcome_message'), 'osclasswizards_theme');
+                osc_set_preference('slide_message', Params::getParam('slide_message'), 'osclasswizards_theme');
                 osc_set_preference('defaultShowAs@all', Params::getParam('defaultShowAs@all'), 'osclasswizards_theme');
                 osc_set_preference('defaultShowAs@search', Params::getParam('defaultShowAs@all'));
 				

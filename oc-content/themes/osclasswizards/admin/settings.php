@@ -99,6 +99,14 @@
               </select>
             </div>
           </div>
+          <div class="form-row">
+            <div class="form-label">
+              <?php _e('Slide message', OSCLASSWIZARDS_THEME_FOLDER); ?>
+            </div>
+            <div class="form-controls">
+              <textarea style="height: 50px; width: 500px;" name="slide_message"><?php echo osc_get_preference('slide_message', 'osclasswizards_theme'); ?></textarea>
+            </div>
+          </div>
         </div>
       </fieldset>
       <div class="form-actions">

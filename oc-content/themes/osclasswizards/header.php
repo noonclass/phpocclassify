@@ -89,7 +89,7 @@
         <li> <a href="<?php echo osc_static_page_url(); ?>"><?php echo osc_static_page_title(); ?></a> </li>
         <?php
         }
-		osc_reset_static_pages();
+        osc_reset_static_pages();
         ?>
         <li> <a href="<?php echo osc_contact_url(); ?>">
           <?php _e('Contact', OSCLASSWIZARDS_THEME_FOLDER); ?>
@@ -105,18 +105,30 @@
     </div>
   </div>
   <?php 
-	if( osc_is_home_page() ) {
-		if(osc_get_preference('show_banner', 'osclasswizards_theme')=='1'){
-			echo '<div id="header_map">';
-			if(homepage_image()) { 
-				echo homepage_image(); 
-			} else {
-			
-				echo '<img src="'.osc_current_web_theme_url('images/banner.jpg').'" />';
-
-			} 
-			echo '</div>';
-		}
+    if( osc_is_home_page() ) {
+        if(osc_get_preference('show_banner', 'osclasswizards_theme')=='1'){
+            echo '<div id="header_map">'; ?>
+              <?php $smsg=osc_get_preference('slide_message', 'osclasswizards_theme'); $smsg=json_decode($smsg,true); ?>
+                <div id="slides">
+                    <?php foreach ($smsg as $k => $v) { ?>
+                        <div id="slide<?php echo $k; ?>">
+                          <div class="container">
+                            <h1><?php echo $v['title']; ?> <span class="stress"><?php echo $v['subtitle']; ?></span></h1>
+                            <h2><?php echo $v['desc']; ?></h2>
+                          </div>
+                        </div>
+                    <?php } ?>
+                    <a href="#" class="slidesjs-previous slidesjs-navigation"><i class="fa fa-chevron-left fa-2x"></i></a>
+                    <a href="#" class="slidesjs-next slidesjs-navigation"><i class="fa fa-chevron-right fa-2x"></i></a>
+                </div>
+            <?php /*
+            if(homepage_image()) { 
+                echo homepage_image(); 
+            } else {
+                echo '<img src="'.osc_current_web_theme_url('images/banner.jpg').'" />';
+            } */
+            echo '</div>';
+        }
 ?>
   <div class="banner_none" id="form_vh_map">
     <form action="<?php echo osc_base_url(true); ?>" id="main_search" method="get" class="search nocsrf" >
@@ -168,8 +180,8 @@
     </form>
   </div>
   <?php
-	
-	} 
+    
+    } 
 ?>
   <?php osc_show_widgets('header'); ?>
 </header>

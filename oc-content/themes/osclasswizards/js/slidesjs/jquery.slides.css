@@ -1,0 +1,113 @@
+/* SlidesJS Optional: If you'd like to use this design */
+#slides {
+  display: none;
+  position: relative;
+}
+
+#slides .slidesjs-navigation {
+  margin-top:3px;
+}
+#slides .slidesjs-previous {
+  margin-right: 5px;
+  float: left;
+  position: absolute;
+  font-size: 0.8em;
+  bottom: 10px;
+  left: 10px;
+  z-index: 999;
+}
+#slides .slidesjs-next {
+  margin-right: 5px;
+  float: left;
+  position: absolute;
+  font-size: 0.8em;
+  bottom: 10px;
+  left: 25px;
+  z-index: 999;
+}
+.slidesjs-pagination {
+  margin: 6px 0 0;
+  float: right;
+  list-style: none;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: 999;
+}
+.slidesjs-pagination li {
+  float: left;
+  margin: 0 1px;
+}
+.slidesjs-pagination li a {
+  display: block;
+  width: 13px;
+  height: 0;
+  padding-top: 13px;
+  background-image: url(pagination.png);
+  background-position: 0 0;
+  float: left;
+  overflow: hidden;
+}
+.slidesjs-pagination li a.active,
+.slidesjs-pagination li a:hover.active {
+  background-position: 0 -13px
+}
+.slidesjs-pagination li a:hover {
+  background-position: 0 -26px
+}
+#slides a:link,
+#slides a:visited {
+  color: #333
+}
+#slides a:hover,
+#slides a:active {
+  color: #9e2020
+}
+.navbar {
+  overflow: hidden
+}
+/* End SlidesJS Optional */
+
+/* SlidesJS Required: These styles are required if you'd like a responsive slideshow  */
+#slides #slide0{background: rgba(0, 0, 0, 0.8) url("../../images/banner/slide0.jpg") no-repeat scroll center center /contain;height:100%}
+#slides #slide1{background: rgba(0, 0, 0, 0.8) url("../../images/banner/slide1.jpg") no-repeat scroll center center /contain;height:100%}
+#slides #slide2{background: rgba(0, 0, 0, 0.8) url("../../images/banner/slide2.jpg") no-repeat scroll center center /contain;height:100%}
+#slides div div h1{overflow: hidden; color: #ffffff; margin: 40px 15px; font-size: 40px; font-family: Helvetica}
+#slides div div h1 span{ background-color: white; border-radius: 10px; color: #000; margin: 5px; padding: 0 5px;}
+#slides div div h2{overflow: hidden; color: #3dc697; margin: 80px 15px; font-size: 20px;  font-family: Helvetica}
+
+/*==================================================
+=            Bootstrap 3 Media Queries             =
+==================================================*/
+
+/*==========  Non-Mobile First Method  ==========*/
+
+/* Large Devices, Wide Screens */
+@media only screen and (max-width : 1200px) {
+
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 992px) {
+  #slides div div h1{font-size: 30px;}
+  #slides div div h2{font-size: 16px; margin: 40px 15px;}
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px) {
+  #slides div div h1{font-size: 20px; margin: 20px 15px;}
+  #slides div div h2{font-size: 15px; margin: 20px 15px;}
+}
+
+/* Extra Small Devices, Phones */ 
+@media only screen and (max-width : 480px) {
+  #slides div div h1{font-size: 16px;}
+  #slides div div h2{display: none;}
+}
+
+/* Custom, iPhone Retina */ 
+@media only screen and (min-width : 320px) {
+  
+}
+
+/* SlidesJS Required: */
