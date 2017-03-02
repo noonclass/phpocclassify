@@ -46,6 +46,7 @@
                     $iUpdated          = 0;
                     $sPageTitle        = Params::getParam('pageTitle');
                     $sPageDesc         = Params::getParam('pageDesc');
+                    $sPageKeywords     = Params::getParam('pageKeywords');
                     $sContactEmail     = Params::getParam('contactEmail');
                     $sLanguage         = Params::getParam('language');
                     $sDateFormat       = Params::getParam('dateFormat');
@@ -65,6 +66,7 @@
                     // preparing parameters
                     $sPageTitle        = trim(strip_tags($sPageTitle));
                     $sPageDesc         = trim(strip_tags($sPageDesc));
+                    $sPageKeywords     = trim(strip_tags($sPageKeywords));
                     $sContactEmail     = trim(strip_tags($sContactEmail));
                     $sLanguage         = trim(strip_tags($sLanguage));
                     $sDateFormat       = trim(strip_tags($sDateFormat));
@@ -101,6 +103,7 @@
 
                     $iUpdated += osc_set_preference('pageTitle', $sPageTitle);
                     $iUpdated += osc_set_preference('pageDesc', $sPageDesc);
+                    $iUpdated += osc_set_preference('pageKeywords', $sPageKeywords);
 
                     if( !defined('DEMO') ) {
                         $iUpdated += osc_set_preference('contactEmail', $sContactEmail);

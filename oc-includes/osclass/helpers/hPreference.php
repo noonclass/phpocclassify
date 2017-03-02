@@ -569,6 +569,15 @@
     }
 
     /**
+     * Gets website keywords
+     *
+     * @return string
+     */
+    function osc_page_keywords() {
+        return(getPreference('pageKeywords'));
+    }
+
+    /**
      * Gets contact email
      *
      * @return string

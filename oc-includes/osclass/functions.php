@@ -218,6 +218,10 @@ function meta_description( ) {
 
 function meta_keywords( ) {
     $text = '';
+    // home page
+    if( osc_is_home_page() ) {
+        $text = osc_page_keywords();
+    }
     // search
     if( osc_is_search_page() ) {
         if( osc_has_items() ) {
