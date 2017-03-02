@@ -176,16 +176,16 @@
                     foreach($aResources as $resource) {
                         osc_run_hook('regenerate_image', $resource);
                         if(strpos($resource['s_content_type'], 'image')!==false) {
-                            if(file_exists(osc_base_path().$resource['s_path'].$resource['pk_i_id']."_original.".$resource['s_extension'])) {
-                                $image_tmp = osc_base_path().$resource['s_path'].$resource['pk_i_id']."_original.".$resource['s_extension'];
+                            if(file_exists(osc_base_path().$resource['s_path'].$resource['pk_i_id']."_archived.".$resource['s_extension'])) {
+                                $image_tmp = osc_base_path().$resource['s_path'].$resource['pk_i_id']."_archived.".$resource['s_extension'];
                                 $use_original = true;
                             } else if(file_exists(osc_base_path().$resource['s_path'].$resource['pk_i_id'].".".$resource['s_extension'])) {
                                 $image_tmp = osc_base_path().$resource['s_path'].$resource['pk_i_id'].".".$resource['s_extension'];
                                 $use_original = false;
-                            } else if(file_exists(osc_base_path().$resource['s_path'].$resource['pk_i_id']."_preview.".$resource['s_extension'])) {
+                            } /*else if(file_exists(osc_base_path().$resource['s_path'].$resource['pk_i_id']."_preview.".$resource['s_extension'])) {
                                 $image_tmp = osc_base_path().$resource['s_path'].$resource['pk_i_id']."_preview.".$resource['s_extension'];
                                 $use_original = false;
-                            } else {
+                            } */else {
                                 $use_original = false;
                                 continue;
                             };

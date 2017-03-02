@@ -1465,7 +1465,7 @@
                             //osc_copy($tmpName.'_preview', $folder.$resourceId.'_preview.'.$extension);
                             osc_copy($tmpName.'_thumbnail', $folder.$resourceId.'_thumbnail.'.$extension);
                             if( osc_keep_original_image() ) {
-                                $path = $folder.$resourceId.'_original.'.$extension;
+                                $path = $folder.$resourceId.'_archived.'.$extension;
                                 osc_copy($tmpName, $path);
                             }
                             @unlink($tmpName."_normal");
@@ -1474,11 +1474,10 @@
                             @unlink($tmpName);
 
                             $s_path = str_replace(osc_base_path(), '', $folder);
-                            $s_name = basename($aResources['name'][$key], '.'.$extension);
                             $itemResourceManager->update(
                                 array(
                                     's_path'          => $s_path
-                                    ,'s_name'         => $s_name //osc_genRandomPassword()
+                                    ,'s_name'         => osc_genRandomPassword()
                                     ,'s_extension'    => $extension
                                     ,'s_content_type' => $mime
                                 )

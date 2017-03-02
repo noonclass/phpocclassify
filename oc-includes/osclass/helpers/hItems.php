@@ -861,7 +861,7 @@
      * @return string
      */
     function osc_resource_original_url() {
-        return (string) osc_resource_path().osc_resource_id()."_original.".osc_resource_field("s_extension");
+        return (string) osc_resource_path().osc_resource_id()."_archived.".osc_resource_field("s_extension");
     }
 
     /**
