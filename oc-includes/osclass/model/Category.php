@@ -402,7 +402,7 @@
          * @param string $slug
          * @return array
          */
-        public function findBySlug($slug)
+        public function findBySlug($slug, $parent = null)
         {
             $slug = trim($slug);
             if($slug!='') {
@@ -410,12 +410,57 @@
                     return $this->findByPrimaryKey($this->_slugs[$slug]);
                 }
                 $slug = urlencode($slug);
+                if (!is_null($parent)) {
+                    $this->dao->where('a.fk_i_parent_id', $parent);
+                }
                 $this->dao->where('b.s_slug', $slug);
                 // end specific condition
 
                 $results = $this->listWhere();
                 if (count($results) > 0) {
                     $this->_slugs[$slug] = $results[0]['pk_i_id'];
+                    return $results[0];
+                }
+            }
+            return array();
+        }
+
+        /**
+         * Find a category find its slug
+         *
+         * @access public
+         * @since unknown
+         * @param array $slugs
+         * @return array
+         */
+        public function findBySlugHierarchy($slugs)
+        {
+            if(count($slugs)>0) {
+                $results = null;
+                $parent = null;
+                $len = count($slugs);
+                if ($len<2) { //$len == 1
+                    return $this->findBySlug($slugs[0]);
+                }else { //$len >= 2, get only the last segment
+                    $slug = trim($slugs[0]);
+                    $this->dao->where('b.s_slug', $slug);
+                    $results = $this->listWhere();
+                    if (count($results) > 0) {
+                        $parent = $results[0]['pk_i_id'];
+                    }
+                    
+                    for ($i=1; $i<$len; $i++){
+                        $slug = trim($slugs[$i]);
+                        $this->dao->where('a.fk_i_parent_id', $parent);
+                        $this->dao->where('b.s_slug', $slug);
+                        $results = $this->listWhere();
+                        if (count($results) > 0) {
+                            $parent = $results[0]['pk_i_id'];
+                        }
+                    }
+                }
+                // end specific condition
+                if (count($results) > 0) {
                     return $results[0];
                 }
             }

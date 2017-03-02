@@ -454,13 +454,15 @@
             }
             $url = $base_url.osc_get_preference('rewrite_search_url');
             // CANONICAL URLS
-            if(isset($params['sCategory']) && !is_array($params['sCategory']) && strpos($params['sCategory'], ',')===false && ($countP==1 || ($countP==2 && isset($params['iPage'])))) {
+            if(isset($params['sCategory']) && !is_array($params['sCategory']) && strpos($params['sCategory'], ',')===false && ($countP==1 || ($countP==2 && isset($params['iPage'])) || ($countP==2 && isset($params['iParent'])) )) {
                 if(osc_category_id()==$params['sCategory']) {
                     $category['pk_i_id'] = osc_category_id();
                     $category['s_slug'] = osc_category_slug();
                 } else {
                     if(is_numeric($params['sCategory'])) {
                         $category = Category::newInstance()->findByPrimaryKey($params['sCategory']);
+                    } else if(isset($params['iParent'])) {
+                        $category = Category::newInstance()->findBySlug($params['sCategory'], $params['iParent']);
                     } else {
                         $category = Category::newInstance()->findBySlug($params['sCategory']);
                     }

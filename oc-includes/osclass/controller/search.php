@@ -83,7 +83,10 @@
                         } else {
                             if(stripos(Params::getParam('sCategory'), '/')!==false) {
                                 $tmp = explode("/", preg_replace('|/$|', '', Params::getParam('sCategory')));
-                                $category  = Category::newInstance()->findBySlug($tmp[count($tmp)-1]);
+                                $category  = Category::newInstance()->findBySlugHierarchy($tmp);
+                                if(!empty($category)) {
+                                    Params::setParam('iParent', $category['fk_i_parent_id']);
+                                }
                                 Params::setParam('sCategory', $tmp[count($tmp)-1]);
                             } else {
                                 $category  = Category::newInstance()->findBySlug(Params::getParam('sCategory'));
