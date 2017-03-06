@@ -79,7 +79,7 @@
         <?php } ?>
       </ul>
       <?php
-            echo '<div class="copyright"><a herf="/help/show_article?conditions">Copyright ©</a> 1999-2017 <a href=#>HOTLINKS.ORG</a><br/> ' . sprintf(__('Powered by <a target="_blank" title="osclass.org" href="%s">Osclass</a> - Theme by <a target="_blank" title="osclassthemes.org" href="%s">Osclass Themes</a>',OSCLASSWIZARDS_THEME_FOLDER), 'http://www.osclass.org/','http://www.osclassthemes.org/') . '</div>';
+            echo '<div class="copyright"><a herf="/help/show_article?conditions">Copyright ©</a> 1999-2017 <a href="'.osc_base_url().'">'.osc_page_title().'.org</a><br/> ' . sprintf(__('Powered by <a target="_blank" title="osclass.org" href="%s">Osclass</a> - Theme by <a target="_blank" title="osclassthemes.org" href="%s">Osclass Themes</a>',OSCLASSWIZARDS_THEME_FOLDER), 'http://www.osclass.org/','http://www.osclassthemes.org/') . '</div>';
         ?>
     </div>
   </div>

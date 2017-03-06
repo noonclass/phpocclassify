@@ -176,13 +176,13 @@ function meta_title() {
             $text = __('Contact');
         break;
         default:
-            $text = osc_page_title();
+            $text = osc_page_title() . ' - ' . osc_page_subtitle();
         break;
     }
 
     if( !osc_is_home_page() ) {
         if($text!='') {
-            $text .= ' - ' . osc_page_title();
+            $text = osc_page_title() . ' - ' . $text;
         } else {
             $text = osc_page_title();
         }

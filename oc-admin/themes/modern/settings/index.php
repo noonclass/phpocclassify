@@ -163,6 +163,10 @@
                         <div class="form-controls"><input type="text" class="xlarge" name="pageTitle" value="<?php echo osc_esc_html( osc_page_title() ); ?>" /></div>
                     </div>
                     <div class="form-row">
+                        <div class="form-label"><?php _e('Page subtitle'); ?></div>
+                        <div class="form-controls"><input type="text" class="xlarge" name="pageSubtitle" value="<?php echo osc_esc_html( osc_page_subtitle() ); ?>" /></div>
+                    </div>
+                    <div class="form-row">
                         <div class="form-label"><?php _e('Page description'); ?></div>
                         <div class="form-controls"><input type="text" class="xlarge" name="pageDesc" value="<?php echo osc_esc_html( osc_page_description() ); ?>" /></div></div>
                     <div class="form-row">

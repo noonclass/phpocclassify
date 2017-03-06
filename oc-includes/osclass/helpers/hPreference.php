@@ -524,6 +524,15 @@
     }
 
     /**
+     * Gets website's subtitle
+     *
+     * @return string
+     */
+    function osc_page_subtitle() {
+        return (getPreference('pageSubtitle'));
+    }
+
+    /**
      * Gets website's default language
      *
      * @return string

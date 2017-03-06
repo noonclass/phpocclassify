@@ -45,6 +45,7 @@
                     osc_csrf_check();
                     $iUpdated          = 0;
                     $sPageTitle        = Params::getParam('pageTitle');
+                    $sPageSubtitle     = Params::getParam('pageSubtitle');
                     $sPageDesc         = Params::getParam('pageDesc');
                     $sPageKeywords     = Params::getParam('pageKeywords');
                     $sContactEmail     = Params::getParam('contactEmail');
@@ -65,6 +66,7 @@
 
                     // preparing parameters
                     $sPageTitle        = trim(strip_tags($sPageTitle));
+                    $sPageSubtitle     = trim(strip_tags($sPageSubtitle));
                     $sPageDesc         = trim(strip_tags($sPageDesc));
                     $sPageKeywords     = trim(strip_tags($sPageKeywords));
                     $sContactEmail     = trim(strip_tags($sContactEmail));
@@ -102,6 +104,7 @@
                     }
 
                     $iUpdated += osc_set_preference('pageTitle', $sPageTitle);
+                    $iUpdated += osc_set_preference('pageSubtitle', $sPageSubtitle);
                     $iUpdated += osc_set_preference('pageDesc', $sPageDesc);
                     $iUpdated += osc_set_preference('pageKeywords', $sPageKeywords);
 
