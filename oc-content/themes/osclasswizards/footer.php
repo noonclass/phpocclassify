@@ -94,7 +94,7 @@
 
   ga('create', 'UA-92567193-1', 'auto');
   ga('send', 'pageview');
-  
+<?php if( osc_is_home_page() ) {  ?>
   /* Section: Slidesjs */
   $(function(){
     $("#slides").slidesjs({
@@ -120,5 +120,6 @@
       }
     });
   });
+<?php } ?>
 </script>
 </body></html>
