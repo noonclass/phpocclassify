@@ -72,9 +72,9 @@
 #slides #slide0{background: rgba(0, 0, 0, 0.8) url("../../images/banner/slide0.jpg") no-repeat scroll center center /contain;height:100%}
 #slides #slide1{background: rgba(0, 0, 0, 0.8) url("../../images/banner/slide1.jpg") no-repeat scroll center center /contain;height:100%}
 #slides #slide2{background: rgba(0, 0, 0, 0.8) url("../../images/banner/slide2.jpg") no-repeat scroll center center /contain;height:100%}
-#slides div div h1{overflow: hidden; color: #ffffff; margin: 40px 15px; font-size: 40px; font-family: Helvetica}
-#slides div div h1 span{ background-color: white; border-radius: 10px; color: #000; margin: 5px; padding: 0 5px;}
-#slides div div h2{overflow: hidden; color: #3dc697; margin: 80px 15px; font-size: 20px;  font-family: Helvetica}
+#slides div div h1{overflow: hidden; color: white; margin: 40px 15px; font-size: 40px; font-family: Helvetica}
+#slides div div h1 span{ background-color: white; color: #000; margin: 5px; padding: 0 5px; border: 2px solid #ccc; border-radius: 10px; box-shadow: 2px 2px 8px #000;}
+#slides div div h2{overflow: hidden; color: #ccc; margin: 80px 15px; font-size: 20px;  font-family: Helvetica}
 
 /*==================================================
 =            Bootstrap 3 Media Queries             =
